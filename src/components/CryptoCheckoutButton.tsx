@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { PaddlePlanId } from "@/lib/paddle";
-import { CRYPTO_CHAIN_LIST } from "@/lib/nowpayments";
+import { CRYPTO_CHAIN_LIST, SANDBOX_CRYPTO_CHAIN_LIST } from "@/lib/nowpayments";
 import { cn } from "@/lib/utils";
 
 type CryptoCheckoutButtonProps = {
@@ -12,6 +12,8 @@ export function CryptoCheckoutButton({
   planId,
   accountEmail,
 }: CryptoCheckoutButtonProps) {
+  const sandbox = import.meta.env.VITE_NOWPAYMENTS_SANDBOX === "true";
+  const chains = sandbox ? SANDBOX_CRYPTO_CHAIN_LIST : CRYPTO_CHAIN_LIST;
   const [open, setOpen] = useState(false);
   const [pendingChain, setPendingChain] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -55,7 +57,7 @@ export function CryptoCheckoutButton({
       </button>
       {open ? (
         <div className="grid grid-cols-2 gap-2">
-          {CRYPTO_CHAIN_LIST.map((chain) => (
+          {chains.map((chain) => (
             <button
               key={chain.id}
               type="button"

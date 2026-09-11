@@ -19,6 +19,8 @@ export const CRYPTO_CHAINS: Record<CryptoChainId, CryptoChain> = {
 
 export const CRYPTO_CHAIN_LIST = Object.values(CRYPTO_CHAINS);
 
+export const SANDBOX_CRYPTO_CHAIN_LIST = [CRYPTO_CHAINS.btc];
+
 export const CRYPTO_PLAN_PRICES_USD: Record<PaddlePlanId, number> = {
   pro_monthly: 8.99,
   pro_yearly: 49.9,

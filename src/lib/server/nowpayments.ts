@@ -14,6 +14,7 @@ export type NowPaymentsEnv = {
   publicKey?: string;
   apiUrl: string;
   publicOrigin: string;
+  ipnUrl: string;
   supabaseUrl: string;
   supabaseServiceRoleKey: string;
 };
@@ -81,6 +82,9 @@ export function readNowPaymentsEnv(
         ? "https://api-sandbox.nowpayments.io/v1"
         : "https://api.nowpayments.io/v1"),
     publicOrigin: (source.PUBLIC_SITE_URL || source.NOWPAYMENTS_PUBLIC_ORIGIN || "").replace(/\/$/, ""),
+    ipnUrl:
+      source.NOWPAYMENTS_IPN_URL ||
+      `${(source.SUPABASE_URL || "").replace(/\/$/, "")}/functions/v1/nowpayments-ipn`,
     supabaseUrl: source.SUPABASE_URL || "",
     supabaseServiceRoleKey:
       source.SUPABASE_SERVICE_ROLE_KEY || source.RECOVERY_SERVICE_ROLE_KEY || "",
@@ -170,7 +174,7 @@ export async function createNowPaymentsInvoice(input: {
     pay_currency: chain.payCurrency,
     order_id: orderId,
     order_description: `Visage.AI ${input.planId === "pro_yearly" ? "Pro Yearly" : "Pro Monthly"} for ${email}`,
-    ipn_callback_url: `${origin}/api/nowpayments/ipn`,
+    ipn_callback_url: input.env.ipnUrl,
     success_url: successUrl.toString(),
     cancel_url: `${origin}/#pricing`,
     is_fixed_rate: true,
