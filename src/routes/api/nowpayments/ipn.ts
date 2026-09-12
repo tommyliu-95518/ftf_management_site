@@ -6,6 +6,7 @@ import { processNowPaymentsIpn, readNowPaymentsEnv } from "@/lib/server/nowpayme
 export const Route = createFileRoute("/api/nowpayments/ipn")({
   server: {
     handlers: {
+      GET: async () => Response.json({ ok: true, service: "nowpayments-ipn" }),
       POST: async ({ request }) => {
         const rawBody = await request.text();
         const env = readNowPaymentsEnv(process.env as Record<string, string | undefined>);

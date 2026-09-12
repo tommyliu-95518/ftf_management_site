@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as CheckoutSuccessRouteImport } from './routes/checkout/success'
+import { Route as ApiNowpaymentsConfirmRouteImport } from './routes/api/nowpayments/confirm'
 import { Route as ApiNowpaymentsInvoiceRouteImport } from './routes/api/nowpayments/invoice'
 import { Route as ApiNowpaymentsIpnRouteImport } from './routes/api/nowpayments/ipn'
 import { Route as ApiPaddleWebhookRouteImport } from './routes/api/paddle/webhook'
@@ -29,6 +30,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const CheckoutSuccessRoute = CheckoutSuccessRouteImport.update({
   id: '/checkout/success',
   path: '/checkout/success',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiNowpaymentsConfirmRoute = ApiNowpaymentsConfirmRouteImport.update({
+  id: '/api/nowpayments/confirm',
+  path: '/api/nowpayments/confirm',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiNowpaymentsInvoiceRoute = ApiNowpaymentsInvoiceRouteImport.update({
@@ -51,6 +57,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/checkout/success': typeof CheckoutSuccessRoute
+  '/api/nowpayments/confirm': typeof ApiNowpaymentsConfirmRoute
   '/api/nowpayments/invoice': typeof ApiNowpaymentsInvoiceRoute
   '/api/nowpayments/ipn': typeof ApiNowpaymentsIpnRoute
   '/api/paddle/webhook': typeof ApiPaddleWebhookRoute
@@ -59,6 +66,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/checkout/success': typeof CheckoutSuccessRoute
+  '/api/nowpayments/confirm': typeof ApiNowpaymentsConfirmRoute
   '/api/nowpayments/invoice': typeof ApiNowpaymentsInvoiceRoute
   '/api/nowpayments/ipn': typeof ApiNowpaymentsIpnRoute
   '/api/paddle/webhook': typeof ApiPaddleWebhookRoute
@@ -68,6 +76,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/checkout/success': typeof CheckoutSuccessRoute
+  '/api/nowpayments/confirm': typeof ApiNowpaymentsConfirmRoute
   '/api/nowpayments/invoice': typeof ApiNowpaymentsInvoiceRoute
   '/api/nowpayments/ipn': typeof ApiNowpaymentsIpnRoute
   '/api/paddle/webhook': typeof ApiPaddleWebhookRoute
@@ -78,6 +87,7 @@ export interface FileRouteTypes {
     | '/'
     | '/sitemap.xml'
     | '/checkout/success'
+    | '/api/nowpayments/confirm'
     | '/api/nowpayments/invoice'
     | '/api/nowpayments/ipn'
     | '/api/paddle/webhook'
@@ -86,6 +96,7 @@ export interface FileRouteTypes {
     | '/'
     | '/sitemap.xml'
     | '/checkout/success'
+    | '/api/nowpayments/confirm'
     | '/api/nowpayments/invoice'
     | '/api/nowpayments/ipn'
     | '/api/paddle/webhook'
@@ -94,6 +105,7 @@ export interface FileRouteTypes {
     | '/'
     | '/sitemap.xml'
     | '/checkout/success'
+    | '/api/nowpayments/confirm'
     | '/api/nowpayments/invoice'
     | '/api/nowpayments/ipn'
     | '/api/paddle/webhook'
@@ -103,6 +115,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   CheckoutSuccessRoute: typeof CheckoutSuccessRoute
+  ApiNowpaymentsConfirmRoute: typeof ApiNowpaymentsConfirmRoute
   ApiNowpaymentsInvoiceRoute: typeof ApiNowpaymentsInvoiceRoute
   ApiNowpaymentsIpnRoute: typeof ApiNowpaymentsIpnRoute
   ApiPaddleWebhookRoute: typeof ApiPaddleWebhookRoute
@@ -129,6 +142,13 @@ declare module '@tanstack/react-router' {
       path: '/checkout/success'
       fullPath: '/checkout/success'
       preLoaderRoute: typeof CheckoutSuccessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/nowpayments/confirm': {
+      id: '/api/nowpayments/confirm'
+      path: '/api/nowpayments/confirm'
+      fullPath: '/api/nowpayments/confirm'
+      preLoaderRoute: typeof ApiNowpaymentsConfirmRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/nowpayments/invoice': {
@@ -159,6 +179,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   CheckoutSuccessRoute: CheckoutSuccessRoute,
+  ApiNowpaymentsConfirmRoute: ApiNowpaymentsConfirmRoute,
   ApiNowpaymentsInvoiceRoute: ApiNowpaymentsInvoiceRoute,
   ApiNowpaymentsIpnRoute: ApiNowpaymentsIpnRoute,
   ApiPaddleWebhookRoute: ApiPaddleWebhookRoute,
